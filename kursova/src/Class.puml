@@ -1,0 +1,322 @@
+@startuml
+interface DAO<T>{
++save(data:T):void
++get(pattern:String):T
++getAll(pattern:String):ArrayList<T>
++delete(pattern:String):void
++update(data:T, pattern:String):void
+}
+
+class AccountController {
+    - accountDAO:AccountDAO
+    + create(account:Account):void
+    + get():ArrayList<Account>
+    + get(requestData:String):Account
+    + findByStatus(requestData:String):ArrayList<Account>
+    + update(requestData:String):void
+    + delete(requestData:String):void
+}
+class CapacityController {
+    - capacityDAO:CapacityDAO
+    + create(capacity:Capacity):void
+    + get():ArrayList<Capacity>
+    + get(requestData:String):Capacity
+    + update(requestData:String):void
+    + delete(requestData:String):void
+}
+class EducationPlanController {
+    - educationPlanDAO:EducationPlanDAO
+    + create(educationPlan:EducationPlan):void
+    + get():ArrayList<EducationPlan>
+    + get(requestData:String):EducationPlan
+    + findBySpeciality(requestData:String):ArrayList<EducationPlan>
+    + update(requestData:String):void
+    + delete(requestData:String):void
+}
+class SubjectController {
+    - subjectDAO:SubjectDAO
+    + create(subject:Subject):void
+    + get():ArrayList<Subject>
+    + get(requestData:String):Subject
+    + update(requestData:String):void
+    + delete(requestData:String):void
+}
+class TeacherController {
+    - teacherDAO:TeacherDAO
+    + create(subject:Teacher):void
+    + get():ArrayList<Teacher>
+    + get(requestData:String):Teacher
+    + findBySpeciality(requestData:String):ArrayList<Teacher>
+    + update(requestData:String):void
+    + delete(requestData:String):void
+}
+class UserTypesController {
+    - userTypesDAO:UserTypesDAO
+    + create(subject:UserTypes):void
+    + get():ArrayList<UserTypes>
+    + get(requestData:String):UserTypes
+    + findBySpeciality(requestData:String):ArrayList<UserTypes>
+    + update(requestData:String):void
+    + delete(requestData:String):void
+}
+class AccountDAO implements DAO{
+- db:Database
+-account:Account
+-data:ArrayList<Account>
+-en:BCryptPasswordEncoder
++AccountDAO(db:Database):void
++AccountDAO():void
++save(data:Account):void
++get(pattern:String):Account
++getAll():ArrayList<Account>
++findByStatus(pattern:String):ArrayList<Account>
++delete(pattern:String):void
++update(data:Account, pattern:String):void
+}
+class CapacityDAO implements DAO{
+-db:Database
+-capacity:Capacity
+-data:ArrayList<Capacity>
+-en:BCryptPasswordEncoder
++CapacityDAO(db:Database):void
++CapacityDAO():void
++save(data:Capacity):void
++get(pattern:String):Capacity
++getAll():ArrayList<Capacity>
++findByStatus(pattern:String):ArrayList<Capacity>
++delete(pattern:String):void
++update(data:Capacity, pattern:String):void
+}
+class EducationPlanDAO implements DAO{
+-db:Database
+-educationPlan:EducationPlan
+-data:ArrayList<EducationPlan>
+-en:BCryptPasswordEncoder
++EducationPlanDAO(db:Database):void
++EducationPlanDAO():void
++save(data:EducationPlan):void
++get(pattern:String):EducationPlan
++getAll():ArrayList<EducationPlan>
++findBySpeciality(pattern:String):ArrayList<EducationPlan>
++delete(pattern:String):void
++update(data:EducationPlan, pattern:String):void
+}
+class SubjectDAO implements DAO{
+-db:Database
+-educationPlan:Subject
+-data:ArrayList<Subject>
+-en:BCryptPasswordEncoder
++SubjectDAO(db:Database):void
++SubjectDAO():void
++save(data:Subject):void
++get(pattern:String):Subject
++getAll():ArrayList<Subject>
++delete(pattern:String):void
++update(data:Subject, pattern:String):void
+}
+class TeacherDAO implements DAO{
+-db:Database
+-teacher:Teacher
+-data:ArrayList<Teacher>
+-en:BCryptPasswordEncoder
++TeacherDAO(db:Database):void
++TeacherDAO():void
++save(data:Teacher):void
++get(pattern:String):Teacher
++getAll():ArrayList<Teacher>
++findBySubject(pattern:String):ArrayList<Teacher>
++delete(pattern:String):void
++update(data:Teacher, pattern:String):void
+}
+class UserTypesDAO implements DAO{
+-db:Database
+-userTypes:UserTypes
+-data:ArrayList<UserTypes>
+-en:BCryptPasswordEncoder
++UserTypesDAO(db:Database):void
++UserTypesDAO():void
++save(data:UserTypes):void
++get(pattern:String):UserTypes
++getAll():ArrayList<UserTypes>
++findByPermit(pattern:String):ArrayList<UserTypes>
++delete(pattern:String):void
++update(data:UserTypes, pattern:String):void
+}
+class Account{
+-id:int
+-id_status:int
+-login:String
+-password:String
++setData(id:int , id_status:int , login:String, password:String):void
++getId_status():int
++setId_status(id_status:int):int
++getLogin():String
++setLogin(login:String):String
++getId():int
++setId(id:int):int
++getPassword():String
++setPassword(password:String):String
+}
+class Account{
+-id:int
+-id_status:int
+-login:String
+-password:String
++setData(id:int , id_status:int , login:String, password:String):void
++getId_status():int
++setId_status(id_status:int):int
++getLogin():String
++setLogin(login:String):String
++getId():int
++setId(id:int):int
++getPassword():String
++setPassword(password:String):String
+}
+class Subject{
+-id:int
+-id_teacher:int
+-name:String
++setData(id:int , id_teacher:int , name:String):void
++getId_teacher():int
++setId_teacher(id_status:int):int
++getName():String
++setName(name:String):String
++getId():int
++setId(id:int):int
+}
+class Teacher{
+-id:int
+-name:String
+-surname:String
+-fathersname:String
+-shortname:String
+-subjects:ArrayList<String>
++setData(id:int , id_teacher:int , name:String):void
++getId():int
++setId(id:int):int
++getName():String
++setName(name:String):String
++getSurname():String
++setSurname(surname:String):String
++getFathersname():String
++setFathersname(fathersname:String):String
++getSubjects():ArrayList<String>
++setSubjects(subjects:ArrayList<String>):ArrayList<String>
+}
+class Capacity{
+-id:int
+-id_teacher:int
+-semester:int
+-year:int
+-all_hours:int
+-theory_hours:int
+-lab_hours:int
+-pract_hours:int
+-teachers_name:String
+-subject:String
+-groupe:String
+-control_type:String
++setData(id:int , id_teacher:int , teachers_name:String, subject:String, groupe:String,
+semester:int, year:int, all_hours:int, theory_hours:int, lab_hours:int,
+pract_hours:int, control_type:String):void
++getId():int
++setId(id:int):int
++getId_teacher():int
++setId_teacher(id_teacher:int):int
++getTeachers_name():String
++setTeachers_name(teachers_name:String):String
++getSubject():String
++setSubject(subject:String):String
++getGroupe():String
++setGroupe(groupe:String):String
++getSemester():int
++setSemester(semester:int):int
++getYear():int
++setYear(year:int):int
++getAll_hours():int
++setAll_hours(all_hours:int):int
++getPract_hours():int
++setPract_hours(pract_hours:int):int
++getTheory_hours():int
++setTheory_hours(theory_hours:int):int
++getLab_hours():int
++setLab_hours(lab_hours:int):int
++getControl_type():String
++setControl_type(control_type:String):String
+}
+class EducationPlan{
+-id:int
+-id_speciality:int
+-week1:int
+-week2:int
+-week3:int
+-week4:int
+-week5:int
+-week6:int
+-week7:int
+-week8:int
++setData(id:int , id_speciality:int , week1:int, week2:int, week3:int
+, week4:int, week5:int, week6:int, week7:int, week8:int):void
++getId():int
++setId(id:int):int
++getId_speciality():int
++setId_speciality(id_speciality:int):int
++getWeek1():int
++setWeek1(week1:int):int
++getWeek2():int
++setWeek2(week2:int):int
++getWeek3():int
++setWeek3(week3:int):int
++getWeek4():int
++setWeek4(week4:int):int
++getWeek5():int
++setWeek5(week5:int):int
++getWeek6():int
++setWeek6(week6:int):int
++getWeek7():int
++setWeek7(week7:int):int
++getWeek8():int
++setWeek8(week8:int):int
+}
+class UserTypes{
+-id:int
+-name:String
+-permit1:boolean
+-permit2:boolean
+-permit3:boolean
+-permit4:boolean
+-permit5:boolean
+-permit6:boolean
+-permit7:boolean
+-permit8:boolean
++setData(id:int , name:String , permit1:boolean, permit2:boolean, permit3:boolean
+, permit4:boolean, permit5:boolean, permit6:boolean, permit7:boolean, permit8:boolean):void
++getId():int
++setId(id:int):int
++getId_speciality():boolean
++setId_speciality(id_speciality:boolean):boolean
++getpermit1():boolean
++setpermit1(permit1:boolean):boolean
++getpermit2():boolean
++setpermit2(permit2:boolean):boolean
++getpermit3():boolean
++setpermit3(permit3:boolean):boolean
++getpermit4():boolean
++setpermit4(permit4:boolean):boolean
++getpermit5():boolean
++setpermit5(permit5:boolean):boolean
++getpermit6():boolean
++setpermit6(permit6:boolean):boolean
++getpermit7():boolean
++setpermit7(permit7:boolean):boolean
++getpermit8():boolean
++setpermit8(permit8:boolean):boolean
+}
+
+Account-up->AccountDAO
+Capacity-up->CapacityDAO
+EducationPlan -up->EducationPlanDAO
+Teacher-up->TeacherDAO
+Subject -up->SubjectDAO
+UserTypes -up->UserTypesDAO
+@enduml
